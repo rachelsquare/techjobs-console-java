@@ -46,8 +46,11 @@ public class TechJobs {
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
 
                     // Print list of skills, employers, etc
+
+                    // Iterates through results
                     for (String item : results) {
                         System.out.println(item);
+
                     }
                 }
 
@@ -61,7 +64,9 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    //System.out.println("Search all fields not yet implemented.");
+                    ArrayList<HashMap<String, String>> searchResults = JobData.findByValue(searchTerm);
+                    printJobs(searchResults);
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -80,8 +85,8 @@ public class TechJobs {
         // associate an integer with each one
         Integer i = 0;
         for (String choiceKey : choices.keySet()) {
-            choiceKeys[i] = choiceKey;
-            i++;
+                choiceKeys[i] = choiceKey;
+                i++;
         }
 
         do {
@@ -111,6 +116,19 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+       // System.out.println("printJobs is not implemented yet");
+
+        if (!someJobs.isEmpty()) {
+            System.out.println("\n*****\n");
+            for (HashMap<String, String> job : someJobs) {
+                for (String value : job.keySet()) {
+                    System.out.println(value + ": " + job.get(value));
+                }
+                System.out.println("*****\n");
+            }
+        }
+        else{
+            System.out.println("There are no results for your search.");
+        }
     }
 }
